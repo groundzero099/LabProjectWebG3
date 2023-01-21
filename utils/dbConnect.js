@@ -1,8 +1,8 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const dbConnect = async() => {
   const uri =
-    "mongodb+srv://uttamsaha:komolsaha@cluster0.ejbisre.mongodb.net/?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, {
+    `mongodb+srv://${process.env.NAME}:${process.env.PASSWORD}@cluster0.ejbisre.mongodb.net/?retryWrites=true&w=majority`;
+    const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverApi: ServerApiVersion.v1,
