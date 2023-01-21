@@ -4,7 +4,8 @@
 ```
 Back-end:
 npm init -y
-npm install mongodb express dotenv
+npm install mongodb express dotenv 
+npm install cors
 
 
 Front-end:
