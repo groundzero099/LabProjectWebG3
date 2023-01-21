@@ -1,18 +1,18 @@
 const { ObjectId } = require("mongodb");
-const dbConnect = require("../utilis/dbConnect");
-const collection = dbConnect(); //calling database collection here.
+const dbConnect = require("../utils/dbConnect");
+const Collection = dbConnect(); //calling database collection here.
 
 
 const getUser = async (req, res) => {
   const query = {};
-  const cursor = (await collection).find(query);
+  const cursor = (await Collection).userCollection.find(query);
   const users = await cursor.toArray();
   res.send(users);
 };
 
 const saveUser = async (req, res) => {
   const newUser = req.body;
-  const result = (await collection).insertOne(newUser);
+  const result = (await Collection).userCollection.insertOne(newUser);
   res.send("User added");
 };
 
@@ -27,7 +27,7 @@ const updateUser = async (req, res) => {
       age: updatedUser.age,
     },
   };
-  const result = (await collection).updateOne(query, updatedDoc, options);
+  const result = (await Collection).userCollection.updateOne(query, updatedDoc, options);
   res.send("User updated");
 };
 
@@ -35,7 +35,7 @@ const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     const query = { _id: ObjectId(id) };
-    const result = (await collection).deleteOne(query);
+    const result = (await Collection).userCollection.deleteOne(query);
     res.status(200).json({
       status: "Success",
       message: "Successfully deleted the user",
