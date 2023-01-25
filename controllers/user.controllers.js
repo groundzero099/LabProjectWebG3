@@ -2,7 +2,6 @@ const { ObjectId } = require("mongodb");
 const dbConnect = require("../utils/dbConnect");
 const Collection = dbConnect(); //calling database collection here.
 
-
 const getUser = async (req, res) => {
   const query = {};
   const cursor = (await Collection).userCollection.find(query);
@@ -23,11 +22,14 @@ const updateUser = async (req, res) => {
   const options = { upsert: true };
   const updatedDoc = {
     $set: {
-      name: updatedUser.name,
-      age: updatedUser.age,
+      Name: updatedUser.Name,
     },
   };
-  const result = (await Collection).userCollection.updateOne(query, updatedDoc, options);
+  const result = (await Collection).userCollection.updateOne(
+    query,
+    updatedDoc,
+    options
+  );
   res.send("User updated");
 };
 
