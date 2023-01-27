@@ -1,4 +1,3 @@
-# LabProjectWebG3
 
 # Quick Attendance. 
 
