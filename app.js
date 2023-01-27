@@ -12,9 +12,9 @@ app.use("/api/users", userRouter);
 dbConnect();
 
 app.get("/", (req, res) => {
-    res.send("Server is running..");
-})
+  res.send("Server is running..");
+});
 
 app.listen(port, () => {
-    console.log("Server is running on  port:  ",port);
-})
+  console.log("Server is running on  port:  ", port);
+});
