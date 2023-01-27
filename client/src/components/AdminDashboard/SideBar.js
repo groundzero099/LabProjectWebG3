@@ -44,7 +44,7 @@ export default function SideBar() {
 
           <li>
             <Link
-              to="/users"
+              to="/add-user"
               class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
               <svg
                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
@@ -58,6 +58,24 @@ export default function SideBar() {
                 </path>
               </svg>
               <span class="ml-3">Add User</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/users"
+              class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
+              <svg
+                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                  clip-rule="evenodd" >
+                </path>
+              </svg>
+              <span class="ml-3">All User</span>
             </Link>
           </li>
         </ul>

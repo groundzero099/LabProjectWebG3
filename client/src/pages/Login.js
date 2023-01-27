@@ -39,10 +39,7 @@ export default function Login(){
   }
   return (
     <div
-      className="flex justify-center items-center h-screen bg-center bg-no-repeat bg-cover"
-      style={{
-        backgroundImage: `url(${bgImage})`,
-      }}
+      className="flex justify-center items-center h-screen bg-center bg-no-repeat bg-cover bg-white"
     >
       <div>
         <form action='POST'
@@ -51,9 +48,7 @@ export default function Login(){
           className="animate-zoomIn w-96 mx-auto bg-purple-100/80 py-4 px-6 rounded-xl shadow-2xl ring-2 backdrop-filter backdrop-blur-xl"
         >
           <img className="w-24 mx-auto -mt-12" src={logo} alt="seu_logo" />
-          <h2 className="mb-6 mt-4 text-3xl font-bold text-center">
-            Login to Account
-          </h2>
+          <h2 className="mb-6 mt-4 text-3xl font-bold text-center  ">Login to Account</h2>
           <div className="relative z-0 mb-6 w-full group">
             <input
               type="email"
@@ -70,7 +65,7 @@ export default function Login(){
             />
             <label
               htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-purple-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium  left-0 absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-purple-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Email address
             </label>
@@ -91,21 +86,21 @@ export default function Login(){
             />
             <label
               htmlFor="floating_password"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-purple-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium left-0 absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-purple-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Password
             </label>
           </div>
           <div>
             {/* {error && <Error message={error} />} */}
-            <p className="mb-4 text-sm">
+            {/* <p className="mb-4 text-sm">
               Don’t have an account?{' '}
               <Link to="/register">
                 <span className="hover:underline text-red-500">
                   Create an account
                 </span>
               </Link>
-            </p>
+            </p> */}
           </div>
           <button
             // disabled={isLoading}
