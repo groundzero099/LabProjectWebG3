@@ -1,11 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import bgImage from '../assets/bg-pattern.jpg';
 import logo from '../assets/seu_low.png';
-import { Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 export default function Login(){
-  function handleSubmit(e) {
-    Navigate("/dashboard"); 
+
+  const history = useNavigate();
+
+  const [email, setEmail] = useState(''); 
+  const [password, setPassword] = useState(''); 
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    console.log(email)
+    try{
+      await axios.post("http://localhost:5000/api/users/login",{
+        email, password
+      })
+      .then(res=>{
+        console.log(res); 
+        if(res.data==="exist"){
+          history("/dashboard"); 
+        }
+        else if(res.data==="notexist"){
+          alert("user have not sign up")
+        }
+      })
+      .catch(e=>{
+        alert("wrong details"); 
+        console.log(e); 
+      })
+    }
+    catch(e){
+      console.log(e); 
+    }
+    // Navigate("/dashboard"); 
   }
   return (
     <div
@@ -15,7 +45,7 @@ export default function Login(){
       }}
     >
       <div>
-        <form
+        <form action='POST'
           onSubmit={handleSubmit}
           style={{ boxShadow: 'rgb(51 51 51 / 60%) 0px 0px 0px 1000px' }}
           className="animate-zoomIn w-96 mx-auto bg-purple-100/80 py-4 px-6 rounded-xl shadow-2xl ring-2 backdrop-filter backdrop-blur-xl"
@@ -33,10 +63,10 @@ export default function Login(){
               placeholder=" "
               required
               // value={email}
-              // onChange={(e) => {
-              //   setEmail(e.target.value);
-              //   setError('');
-              // }}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                // setError('');
+              }}
             />
             <label
               htmlFor="floating_email"
@@ -54,10 +84,10 @@ export default function Login(){
               placeholder=" "
               required
               // value={password}
-              // onChange={(e) => {
-              //   setPassword(e.target.value);
-              //   setError('');
-              // }}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                // setError('');
+              }}
             />
             <label
               htmlFor="floating_password"
@@ -70,11 +100,11 @@ export default function Login(){
             {/* {error && <Error message={error} />} */}
             <p className="mb-4 text-sm">
               Don’t have an account?{' '}
-              {/* <Link to="/register">
+              <Link to="/register">
                 <span className="hover:underline text-red-500">
                   Create an account
                 </span>
-              </Link> */}
+              </Link>
             </p>
           </div>
           <button
