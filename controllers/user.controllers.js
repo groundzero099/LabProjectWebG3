@@ -6,8 +6,27 @@ const getUser = async (req, res) => {
   const query = {};
   const cursor = (await Collection).userCollection.find(query);
   const users = await cursor.toArray();
+  console.log(users); 
   res.send(users);
 };
+
+const findUser = async(req, res)=>{
+  const{email, password} = req.body; 
+  console.log(email); 
+  try{
+    const check = await ( await Collection).userCollection.findOne({email:email, password:password});  
+    if(check){
+      res.json("exist"); 
+    }
+    else {
+      res.json("notexist"); 
+    }
+  }
+  catch(e){
+    res.json("notexist");  
+  }
+};
+
 
 const saveUser = async (req, res) => {
   const newUser = req.body;
@@ -51,4 +70,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, saveUser, updateUser, deleteUser };
+module.exports = { getUser, saveUser, updateUser, deleteUser, findUser };
