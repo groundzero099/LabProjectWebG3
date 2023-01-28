@@ -2,12 +2,17 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import AdminDashboard from './pages/AdminDashboard';
-import AdminAddUser from './pages/AdminAddUser';
 import TeacherDashboard from './pages/TeacherDashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import Login from './pages/Login';
-import StudentProfile from './pages/StudentProfile';
 import { useEffect, useState } from 'react';
+import AddUser from './components/AdminDashboard/AddUser';
+import AllUser from './components/AdminDashboard/AllUser';
+import AddCourse from './components/AdminDashboard/AddCourse';
+import Profile from './components/StudentDashboard/Profile';
+import Course from './components/TeacherDashboard/Course';
+import Attendance from './components/TeacherDashboard/Attendance';
+import StudentCourse from './components/StudentDashboard/StudentCourse';
 
 function App() {
   const [role, setRole] = useState('');
@@ -19,28 +24,34 @@ function App() {
       console.log(loggedInUser); 
       setRole(loggedInUser);
     }
-  }, [role]);
+  }, [role, isLoggedIn]);
   
 
   return (
     <div className="App">
       <Routes>
-        <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/' element={<Login></Login>}></Route>
+        <Route path='/login' element={ <Login></Login>}></Route>
         {/* <Route path='/' element={<Register></Register>}></Route> */}
         <Route path="/dashboard"
             element={ 
-               isLoggedIn==="true"?
-               role === 'admin' ? (
-                <AdminDashboard />
-              ) : role === 'faculty'? (
-                <TeacherDashboard />
-              ) : 
-              <StudentDashboard /> : 
-              <Login></Login>
+                  isLoggedIn === "true"?
+                  role === 'admin' ? (<AdminDashboard />) : 
+                  role === 'faculty'? (
+                    <TeacherDashboard />) : 
+                  <StudentDashboard /> : 
+                  (<Login></Login>)
             }
           />
-        <Route path="/profile" element={<StudentProfile />}/>
-        <Route path='/add-user' element={<AdminAddUser/>}></Route>
+        <Route path="/course-list" element={<StudentCourse></StudentCourse>}></Route>
+        <Route path="/student-profile" element={<Profile />}/> 
+        
+        <Route path='/add-user' element={<AddUser/>}></Route>
+        <Route path='/add-course' element={<AddCourse/>}></Route>
+        <Route path='/users' element={<AllUser/>}></Route>
+
+        <Route path='/view-course' element={<Course/>}></Route>
+        <Route path='/attendance/:id' element={<Attendance/>}></Route>
       </Routes>
     </div>
   );

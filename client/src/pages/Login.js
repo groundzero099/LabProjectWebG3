@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import bgImage from '../assets/bg-pattern.jpg';
 import logo from '../assets/seu_low.png';
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from 'axios'
@@ -33,7 +32,7 @@ export default function Login(){
         }
       })
       .catch(e=>{
-        alert("wrong details"); 
+        alert("Server Error"); 
         console.log(e); 
       })
     }

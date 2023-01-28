@@ -12,10 +12,24 @@ const getUser = async (req, res) => {
   console.log(users); 
   res.send(users);
 };
-
+const saveUser = async (req, res) => {
+  const newUser = req.body;
+  try{
+    const check = await ( await Collection).userCollection.findOne({email:newUser.email}); 
+    if(check){
+      res.json("exist"); 
+    }
+    else {
+      const result = await ( await Collection).userCollection.insertOne(newUser); 
+      res.json("notexist"); 
+    }
+  }
+  catch(e){
+    res.json("Server Error");  
+  }
+};
 const findUser = async(req, res)=>{
   const{email, password} = req.body; 
-  
   try{
     let check = await ( await Collection).userCollection.findOne({email:email});   
     if(check && password==check.password){
@@ -37,42 +51,57 @@ const findUser = async(req, res)=>{
   }
 };
 
-const userData = async(req, res)=>{
-  const {token} = req.body; 
+
+// Course
+const getCourse = async (req, res) => {
+  const query = {};
+  const cursor = (await Collection).CourseCollection.find(query);
+  const course = await cursor.toArray();
+  res.send(course);
+};
+
+const saveCourse = async (req, res) => {
+  const newCourse = req.body;
   try{
-    const user = jwt.verify(token, jwt_secret);
-    const useremail = user.email;
-    await ( await Collection).userCollection.findOne({email: useremail})
-    .then((data)=>{
-      res.send({status: "ok", data:data}); 
-    })
-    .catch((error)=>{
-      res.send({status: "error", data: error}); 
-    });
-  }catch(error){
-
-  }
-}
-
-
-const saveUser = async (req, res) => {
-  const newUser = req.body;
-  try{
-    const check = await ( await Collection).userCollection.findOne({email:newUser.email});
-    console.log(check); 
+    const check = await ( await Collection).CourseCollection.findOne({courseCode:newCourse.courseCode});
     if(check){
-      res.json("exist"); 
+      res.json({status: "error"});
     }
     else {
-      const result = await ( await Collection).userCollection.insertOne(newUser);
-      console.log(result); 
-      res.json("notexist"); 
+      const result = await ( await Collection).CourseCollection.insertOne(newCourse);
+      res.json({status: "ok"});  
     }
   }
   catch(e){
     res.json("Server Error");  
   }
 };
+
+const findCourse = async(req, res)=>{
+  const { id } = req.params;
+  console.log(id); 
+  const query = { _id: ObjectId(id) };
+  // try{
+  //   let check = await ( await Collection).userCollection.findOne({email:email});   
+  //   if(check && password==check.password){
+  //       console.log(check); 
+  //       const token = await jwt.sign({email: email}, jwt_secret,{
+  //         expiresIn: 10,
+  //       });
+  //       res.json({status: "ok", data: token, user: check});  
+  //   }
+  //   else if(check){
+  //     res.json({status: "error", error: "Invalid Password" });
+  //   }
+  //   else{
+  //     res.json({status: "error2", error: "User Not found" });
+  //   }
+  // }
+  // catch(e){
+  //   res.json("Invalid User");  
+  // }
+};
+
 
 const updateUser = async (req, res) => {
   const id = req.params.id;
@@ -110,4 +139,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, saveUser, updateUser, deleteUser, findUser,userData };
+module.exports = { getUser, saveUser, updateUser, deleteUser, findUser, saveCourse,getCourse };

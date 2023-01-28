@@ -80,7 +80,7 @@ export default function SideBar() {
               </li>
               <li>
                 <NavLink
-                  to="/profile"
+                  to="/student-profile"
                   style={({ isActive }) => ({
                     background: isActive ? 'rgb(29 78 216)' : '',
                   })}

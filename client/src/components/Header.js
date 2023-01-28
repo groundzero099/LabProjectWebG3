@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from ".././assets/img_avatar.png"
 
 export default function Header() {
   const navigator = useNavigate(); 
-  // useEffect(() => {
-  //   dispatch(addCourses(cashCourses));
-  // }, [dispatch, cashCourses]);
-
-  // function handleSearch(value) {
-  //   setKeyword(value);
-  //   dispatch(searchByKeyword(keyword));
-  // }
-
   function handleLogout() {
-    // dispatch(userLoggedOut());
-    console.log("hello"); 
     localStorage.clear();
     toast.success('Logout successfull');
     navigator('/login'); 
@@ -47,8 +37,7 @@ export default function Header() {
           <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
           </div>
           <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
-           
-            <h5>Profile</h5>
+          <img className="w-18 mx-auto mt-0 " src={logo} alt="avatar"/>
           </span>
           <svg
             aria-hidden="true"

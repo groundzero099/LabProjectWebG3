@@ -13,12 +13,12 @@ const dbConnect = async () => {
   });
   await client.connect();
   const userCollection = client.db("attendance_db").collection("users");
-  const attendanceCollection = client
-    .db("attendance_db")
-    .collection("attendance");
+  const attendanceCollection = client.db("attendance_db").collection("attendance");
+  const CourseCollection = client.db("attendance_db").collection("course");
   return {
     userCollection: userCollection,
     attendanceCollection: attendanceCollection,
+    CourseCollection: CourseCollection
   };
 };
 module.exports = dbConnect;

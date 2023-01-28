@@ -6,8 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Error from '../ui/Error';
 import axios from 'axios'
+import Layout from './Layout';
 
-export default function Register() {
+export default function AddUser() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,6 +63,9 @@ export default function Register() {
   }
 
   return (
+    <Layout>
+
+    
     <div className="md:flex justify-center items-center h-screen bg-center bg-no-repeat bg-cover">
       <div className="mx-auto md:flex  justify-between items-center animate-zoomIn  bg-white px-10 py-6 rounded-lg shadow-2xl">
         <form onSubmit={handleSubmit} className="w-96 mx-auto">
@@ -74,7 +78,6 @@ export default function Register() {
                 type="text"
                 name="firstName"
                 id="floating_first_name"
-                // value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="block py-2.5 px-0 w-full bg-white text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -155,7 +158,6 @@ export default function Register() {
                 type="password"
                 name="repeat_password"
                 id="floating_repeat_password"
-                // value={repeatPassword}
                 onChange={(e) => {
                   setRepeatPassword(e.target.value);
                 }}
@@ -280,5 +282,6 @@ export default function Register() {
         </form>
       </div>
     </div>
+    </Layout>
   );
 }
