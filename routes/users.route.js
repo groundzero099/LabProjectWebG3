@@ -7,5 +7,6 @@ const router = express.Router();
 router.route("/").get(userController.getUser).post(userController.saveUser);
 router.route("/:id").put(userController.updateUser).delete(userController.deleteUser);
 router.route("/login").post(userController.findUser);
+router.route("/user-data").post(userController.userData); 
 
 module.exports = router;

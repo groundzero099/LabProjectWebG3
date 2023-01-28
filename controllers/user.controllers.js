@@ -1,6 +1,9 @@
 const { ObjectId } = require("mongodb");
 const dbConnect = require("../utils/dbConnect");
 const Collection = dbConnect(); //calling database collection here.
+const jwt = require('jsonwebtoken'); 
+
+const jwt_secret = "validusercheck"; 
 
 const getUser = async (req, res) => {
   const query = {};
@@ -12,26 +15,63 @@ const getUser = async (req, res) => {
 
 const findUser = async(req, res)=>{
   const{email, password} = req.body; 
-  console.log(email); 
+  
   try{
-    const check = await ( await Collection).userCollection.findOne({email:email, password:password});  
-    if(check){
-      res.json("exist"); 
+    let check = await ( await Collection).userCollection.findOne({email:email});   
+    if(check && password==check.password){
+        console.log(check); 
+        const token = await jwt.sign({email: email}, jwt_secret,{
+          expiresIn: 10,
+        });
+        res.json({status: "ok", data: token, user: check});  
     }
-    else {
-      res.json("notexist"); 
+    else if(check){
+      res.json({status: "error", error: "Invalid Password" });
+    }
+    else{
+      res.json({status: "error2", error: "User Not found" });
     }
   }
   catch(e){
-    res.json("notexist");  
+    res.json("Invalid User");  
   }
 };
+
+const userData = async(req, res)=>{
+  const {token} = req.body; 
+  try{
+    const user = jwt.verify(token, jwt_secret);
+    const useremail = user.email;
+    await ( await Collection).userCollection.findOne({email: useremail})
+    .then((data)=>{
+      res.send({status: "ok", data:data}); 
+    })
+    .catch((error)=>{
+      res.send({status: "error", data: error}); 
+    });
+  }catch(error){
+
+  }
+}
 
 
 const saveUser = async (req, res) => {
   const newUser = req.body;
-  const result = (await Collection).userCollection.insertOne(newUser);
-  res.send("User added");
+  try{
+    const check = await ( await Collection).userCollection.findOne({email:newUser.email});
+    console.log(check); 
+    if(check){
+      res.json("exist"); 
+    }
+    else {
+      const result = await ( await Collection).userCollection.insertOne(newUser);
+      console.log(result); 
+      res.json("notexist"); 
+    }
+  }
+  catch(e){
+    res.json("Server Error");  
+  }
 };
 
 const updateUser = async (req, res) => {
@@ -70,4 +110,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, saveUser, updateUser, deleteUser, findUser };
+module.exports = { getUser, saveUser, updateUser, deleteUser, findUser,userData };

@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useLocation } from 'react-router-dom';
-// import { toast } from 'react-toastify';
-// import { userLoggedOut } from '../features/auth/authSlice';
-// import { addCourses, searchByKeyword } from '../features/courses/coursesSlice';
-// import debounce from '../utils/debounce';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Header() {
-  // const dispatch = useDispatch();
-  // const location = useLocation();
-  // const { cashCourses } = useSelector((state) => state.courses);
-  // const auth = useSelector((state) => state.auth);
-  // const { name, email, imageUrl } = auth?.user;
-  // const [keyword, setKeyword] = useState('');
-
+  const navigator = useNavigate(); 
   // useEffect(() => {
   //   dispatch(addCourses(cashCourses));
   // }, [dispatch, cashCourses]);
@@ -23,11 +13,13 @@ export default function Header() {
   //   dispatch(searchByKeyword(keyword));
   // }
 
-  // function handleLogout() {
-  //   dispatch(userLoggedOut());
-  //   localStorage.clear();
-  //   toast.success('Logout successfull');
-  // }
+  function handleLogout() {
+    // dispatch(userLoggedOut());
+    console.log("hello"); 
+    localStorage.clear();
+    toast.success('Logout successfull');
+    navigator('/login'); 
+  }
 
   return (
     <header className="sticky top-0 z-50 shadow-md flex items-center h-20 px-6 sm:px-10 bg-white">
@@ -48,43 +40,14 @@ export default function Header() {
           ></path>
         </svg>
       </button>
-      {/* {(location.pathname === '/advising-table' ||
-        location.pathname === '/course-advising') && (
-        <div className="relative w-full max-w-md sm:-ml-2">
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="absolute h-6 w-6 mt-2.5 ml-2 text-gray-400"
-          >
-            <path
-              fillRule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-          <input
-            type="text"
-            // value={keyword}
-            // onChange={(e) => debounce(handleSearch(e.target.value), 200)}
-            placeholder="Search..."
-            className="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-400 focus:bg-gray-50 rounded-lg"
-          />
-        </div>
-      )} */}
+     
       <div className="flex flex-shrink-0 items-center ml-auto">
         <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
           <span className="sr-only">User Menu</span>
           <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
-            {/* <span className="font-semibold">{email}</span>
-            <span className="text-sm text-gray-600">{name}</span> */}
           </div>
           <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
-            {/* <img
-              // src={imageUrl}
-              alt="profile_photo"
-              className="h-full w-full object-cover"
-            /> */}
+           
             <h5>Profile</h5>
           </span>
           <svg
@@ -121,7 +84,7 @@ export default function Header() {
             </svg>
           </button>
           <button
-            // onClick={handleLogout}
+            onClick={handleLogout}
             className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full"
           >
             <span className="sr-only">Log out</span>
