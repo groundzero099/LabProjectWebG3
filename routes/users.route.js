@@ -9,5 +9,5 @@ router.route("/:id").put(userController.updateUser).delete(userController.delete
 router.route("/login").post(userController.findUser);
 // router.route("/user-data").post(userController.userData); 
 router.route("/course").get(userController.getCourse).post(userController.saveCourse); 
-
+router.route("/course/:id").delete(userController.deleteCourse); 
 module.exports = router;

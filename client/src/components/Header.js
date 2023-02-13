@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from ".././assets/img_avatar.png"
+import { Role } from "../features/auth/Role";
 
 export default function Header() {
+  const [role, setRole] = Role(); 
+  
   const navigator = useNavigate(); 
-  function handleLogout() {
+  async function handleLogout() {
     localStorage.clear();
-    toast.success('Logout successfull');
     navigator('/login'); 
   }
 
@@ -73,7 +75,7 @@ export default function Header() {
             </svg>
           </button>
           <button
-            onClick={handleLogout}
+            onClick={handleLogout }
             className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full"
           >
             <span className="sr-only">Log out</span>

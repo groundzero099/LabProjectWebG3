@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../../assets/seu_low.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import axios from 'axios'
 import Layout from './Layout';
 
@@ -39,6 +37,23 @@ export default function AddCourse() {
       })
     }
   }
+ 
+  const handleOrderDelete = (id) =>{
+    const proceed = window.confirm('Are you sure you want to delete this Course'); 
+    if(proceed) {
+      const url = `http://localhost:5000/api/users/course/${id}`;
+      fetch(url,{
+        method: 'DELETE'
+      })
+      .then(res=>res.json())
+      .then(data=>{  
+        const remaining =  courses.filter(item=>item._id !== id);
+        setCourse(remaining); 
+        alert('Successfully deleted'); 
+      })
+    } 
+  }
+
   return (
     <Layout>
     <div className="md:flex justify-center items-center mt-10">
@@ -97,7 +112,7 @@ export default function AddCourse() {
       </div>
     </div>
 
-    <div className='ml-40 mr-40'>
+    <div className='ml-40 mr-40 '>
       <div class="bg-gray-100 ">
         <table class=" text-left left w-full ">
           <thead className='text-left bg-gray-50 border-b-2 border-gray-200 '>
@@ -105,6 +120,7 @@ export default function AddCourse() {
               <th>#</th>
               <th>Course Code</th>
               <th>Course Title</th>
+              <th>Action</th>
             </tr>
           </thead>
           {/* <tbody> */}
@@ -114,6 +130,7 @@ export default function AddCourse() {
                   <td className='text-sm text-gray-700 p-3'>{index+1}</td>
                   <td className='pt-4 p-2'>{course.courseCode}</td>
                   <td>{course.courseTitle}</td>
+                  <button onClick={()=>handleOrderDelete(course._id)} className='btn btn-xs btn-error mt-2'>Delete</button>
                 </tr>
                 </tbody>
               ))

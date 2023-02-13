@@ -5,7 +5,6 @@ import AdminDashboard from './pages/AdminDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import Login from './pages/Login';
-import { useEffect, useState } from 'react';
 import AddUser from './components/AdminDashboard/AddUser';
 import AllUser from './components/AdminDashboard/AllUser';
 import AddCourse from './components/AdminDashboard/AddCourse';
@@ -13,19 +12,23 @@ import Profile from './components/StudentDashboard/Profile';
 import Course from './components/TeacherDashboard/Course';
 import Attendance from './components/TeacherDashboard/Attendance';
 import StudentCourse from './components/StudentDashboard/StudentCourse';
+import { Role } from './features/auth/Role';
+import NoMatch from './pages/NoMatch';
 
 function App() {
-  const [role, setRole] = useState('');
-  const isLoggedIn = window.localStorage.getItem("loggedIn"); 
-  useEffect(() => {
-    setRole(''); 
-    const loggedInUser = localStorage.getItem("role");
-    if (loggedInUser) {
-      console.log(loggedInUser); 
-      setRole(loggedInUser);
-    }
-  }, [role, isLoggedIn]);
-  
+  // const [role, setRole] = useState('');
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
+  const [role] = Role(); 
+
+  // useEffect(() => {
+  //   setRole(''); 
+  //   const loggedInUser = localStorage.getItem("role");
+  //   if (loggedInUser) {
+  //     console.log(loggedInUser); 
+  //     setRole(loggedInUser);
+  //   }
+  // }, [role, isLoggedIn]);
+
 
   return (
     <div className="App">
@@ -35,11 +38,16 @@ function App() {
         {/* <Route path='/' element={<Register></Register>}></Route> */}
         <Route path="/dashboard"
             element={ 
-                  isLoggedIn === "true"?
-                  role === 'admin' ? (<AdminDashboard />) : 
-                  role === 'faculty'? (
-                    <TeacherDashboard />) : 
-                  <StudentDashboard /> : 
+                  // isLoggedIn === "true"?
+                  // role === 'admin' ? (<AdminDashboard />) : 
+                  // role === 'faculty'? (
+                  //   <TeacherDashboard />) : 
+                  // <StudentDashboard /> : 
+                  // (<Login></Login>)
+
+                  isLoggedIn === "true" && role === 'admin' ? (<AdminDashboard />) : 
+                  isLoggedIn === "true" && role === 'faculty'? (<TeacherDashboard />) : 
+                  isLoggedIn === "true" && role === 'student'? (<StudentDashboard />) : 
                   (<Login></Login>)
             }
           />
@@ -52,6 +60,7 @@ function App() {
 
         <Route path='/view-course' element={<Course/>}></Route>
         <Route path='/attendance/:id' element={<Attendance/>}></Route>
+        <Route path='*' element={<NoMatch/>}></Route>
       </Routes>
     </div>
   );

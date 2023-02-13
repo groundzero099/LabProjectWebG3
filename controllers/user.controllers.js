@@ -102,6 +102,13 @@ const findCourse = async(req, res)=>{
   // }
 };
 
+const deleteCourse = async(req, res)=>{
+  const id = req.params.id; 
+  const query = {_id:ObjectId(id)};
+  const result = await ( await Collection).CourseCollection.deleteOne(query);
+  res.send(result); 
+};
+
 
 const updateUser = async (req, res) => {
   const id = req.params.id;
@@ -139,4 +146,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, saveUser, updateUser, deleteUser, findUser, saveCourse,getCourse };
+module.exports = { getUser, saveUser, updateUser, deleteUser, findUser, saveCourse,getCourse, deleteCourse};

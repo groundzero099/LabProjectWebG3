@@ -10,6 +10,7 @@ npm install cors
 npm i jsonwebtoken
 
 node app.js
+nodemon app.js
 http://localhost:5000/api/users
 
 
